@@ -23,13 +23,14 @@
 #     Added a start screen
 ###############################################################
 
-LFLAGS = -I./include -L./lib -lfmod -lfmodstudio -lglut -lGLU -lGL -s WASM=1 -o ast.html
+LFLAGS = -Iinclude -Llib -lfmod -lfmodstudio -lglut -lGLU -lGL -o asteroids
+#LFLAGS = -Iinclude -v -Llib -lglut -lGLU -lGL -s -o ast.html
 
 ###############################################################
 # Build the main game
 ###############################################################
 a.html: driver.o game.o uiInteract.o uiDraw.o soundOptions.o start.o audioEngine.o point.o velocity.o flyingObject.o ship.o bullet.o rocks.o pause.o keyBind.o asteroid.o
-	emcc driver.o game.o uiInteract.o uiDraw.o soundOptions.o start.o audioEngine.o point.o velocity.o flyingObject.o ship.o bullet.o rocks.o pause.o keyBind.o asteroid.o $(LFLAGS)
+	g++ driver.o game.o uiInteract.o uiDraw.o soundOptions.o start.o audioEngine.o point.o velocity.o flyingObject.o ship.o bullet.o rocks.o pause.o keyBind.o asteroid.o $(LFLAGS)
 
 ###############################################################
 # Individual files
@@ -44,52 +45,52 @@ a.html: driver.o game.o uiInteract.o uiDraw.o soundOptions.o start.o audioEngine
 #    rocks.o        Contains all of the Rock classes
 ###############################################################
 uiDraw.o: uiDraw.cpp uiDraw.h
-	emcc -c uiDraw.cpp
+	g++ -c uiDraw.cpp
 
 uiInteract.o: uiInteract.cpp uiInteract.h
-	emcc -c uiInteract.cpp
+	g++ -c uiInteract.cpp
 
 audioEngine.o: audioEngine.cpp audioEngine.h
-	emcc -c audioEngine.cpp
+	g++ -Iinclude -Llib -c audioEngine.cpp
 
 soundOptions.o: soundOptions.cpp soundOptions.h
-	emcc -c soundOptions.cpp
+	g++ -c soundOptions.cpp
 
 start.o: start.cpp start.h
-	emcc -c start.cpp
+	g++ -c start.cpp
 
 point.o: point.cpp point.h
-	emcc -c point.cpp
+	g++ -c point.cpp
 
 driver.o: driver.cpp game.h
-	emcc -c driver.cpp
+	g++ -Iinclude -Llib -c driver.cpp
 
 game.o: game.cpp game.h uiDraw.h uiInteract.h point.h velocity.h flyingObject.h bullet.h rocks.h ship.h pause.h
-	emcc -c game.cpp
+	g++ -Iinclude -Llib -c game.cpp
 
 velocity.o: velocity.cpp velocity.h point.h
-	emcc -c velocity.cpp
+	g++ -c velocity.cpp
 
 flyingObject.o: flyingObject.cpp flyingObject.h point.h velocity.h uiDraw.h
-	emcc -c flyingObject.cpp
+	g++ -c flyingObject.cpp
 
 ship.o: ship.cpp ship.h flyingObject.h point.h velocity.h uiDraw.h
-	emcc -c ship.cpp
+	g++ -c ship.cpp
 
 bullet.o: bullet.cpp bullet.h flyingObject.h point.h velocity.h uiDraw.h
-	emcc -c bullet.cpp
+	g++ -c bullet.cpp
 
 rocks.o: rocks.cpp rocks.h flyingObject.h point.h velocity.h uiDraw.h
-	emcc -c rocks.cpp
+	g++ -c rocks.cpp
 
 pause.o: pause.cpp pause.h keyBind.h soundOptions.h
-	emcc -c pause.cpp
+	g++ -c pause.cpp
 
 keyBind.o: keyBind.cpp keyBind.h
-	emcc -c keyBind.cpp
+	g++ -c keyBind.cpp
 
 asteroid.o: asteroid.cpp asteroid.h
-	emcc -c asteroid.cpp
+	g++ -c asteroid.cpp
 
 ###############################################################
 # General rules

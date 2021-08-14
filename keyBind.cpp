@@ -76,6 +76,7 @@ std::string KeyBind::bindToStr(KEYBIND bind)
     key[1] = '\0';
     return std::string(key);
   }
+  return "";
 }
 
 void KeyBind::setUIBinds()
